@@ -14,7 +14,7 @@ export default function Header() {
         </span>
       </div>
       <div className="wordmark">
-        <div className="w">CIGNAL NEWS<span className="acc">.</span></div>
+        <div className="w">CIGNAL<span className="middot" />NEWS</div>
       </div>
       <nav className="catbar">
         <a href="/">All</a>

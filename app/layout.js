@@ -1,4 +1,5 @@
 import "./globals.css";
+import SocialBar from "../components/SocialBar";
 
 export const metadata = {
   title: "Cignal News — US economic signal",
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body><SocialBar />{children}</body>
     </html>
   );
 }

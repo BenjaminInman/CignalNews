@@ -155,3 +155,46 @@ a:hover .card-img img { transform: scale(1.05); }
 .foot-grid a:hover { color: var(--accent); }
 .foot-about { color: #7e838c; font-size: 13px; line-height: 1.6; padding-top: 24px; max-width: 100ch; }
 .foot-bottom { display: flex; justify-content: space-between; gap: 14px; padding-top: 20px; font-size: 12px; color: #6c7079; flex-wrap: wrap; }
+
+/* ---------- Middle-dot wordmark ---------- */
+.w .middot, .about-mark .middot { display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--accent); vertical-align: 0.36em; margin: 0 0.1em; }
+
+/* ---------- Main grid with sticky right rail ---------- */
+.main-grid { display: grid; grid-template-columns: minmax(0,1fr) 332px; gap: 14px; align-items: start; }
+@media (max-width: 980px){ .main-grid { grid-template-columns: 1fr; } }
+.main-col { display: flex; flex-direction: column; gap: 14px; }
+.rail { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 16px; }
+@media (max-width: 980px){ .rail { position: static; } }
+
+/* rail CTA boxes (white, news-clean, red accents) */
+.rail-box { background: #fff; border-radius: var(--radius); padding: 24px; }
+.rail-box .rb-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.rail-box h3 { font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--ink); margin-bottom: 9px; }
+.rail-box p { font-size: 14px; color: var(--ink-muted); margin-bottom: 18px; }
+.rb-btn { display: block; text-align: center; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; padding: 13px 16px; border-radius: 8px; }
+.rb-btn:hover { background: var(--accent-hover); color: #fff; }
+.rb-btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); margin-top: 8px; }
+.rb-btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+.rb-meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+.rb-meta span { background: #f4f2ed; border-radius: 100px; padding: 4px 9px; }
+.rb-score { width: 66px; height: 66px; border-radius: 50%; border: 3px solid var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; font-size: 30px; color: var(--accent); margin-bottom: 16px; }
+
+/* ---------- Floating social bar (left, all pages) ---------- */
+.social-bar { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 11px; z-index: 45; }
+@media (max-width: 1340px){ .social-bar { display: none; } }
+.social-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #2c2d31; background: rgba(18,18,20,0.65); color: #cfd1d5; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.social-btn:hover { color: #fff; background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+.social-btn svg { width: 17px; height: 17px; }
+
+/* footer social row (visible on smaller screens / always) */
+.foot-social { display: flex; gap: 10px; margin-top: 16px; }
+.foot-social a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #2c2d31; color: #cfd1d5; display: flex; align-items: center; justify-content: center; }
+.foot-social a:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
+.foot-social svg { width: 15px; height: 15px; }
+
+/* ---------- Ad slots ---------- */
+.ad-slot { background: #f1efe9; border: 1px dashed #d7d3ca; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #9c978c; margin-bottom: 14px; }
+.ad-leaderboard { min-height: 108px; }
+.ad-rectangle { min-height: 250px; margin-bottom: 0; }
+.ad-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.ad-ph { font-family: var(--display); font-weight: 700; font-size: 15px; color: #bdb8ac; }

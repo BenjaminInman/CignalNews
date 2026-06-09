@@ -2,25 +2,25 @@ import { CATEGORIES } from "../lib/feeds";
 
 export default function Header() {
   return (
-    <header className="site-header">
-      <div className="wrap">
-        <div className="header-top">
-          <a className="brand" href="/">
-            <span className="mark">Cignal<b> News</b></span>
-            <span className="dot" />
-          </a>
-          <div className="header-actions">
-            <span className="live"><span className="pulse" /> Live</span>
-            <span>{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</span>
-          </div>
-        </div>
-        <nav className="catbar">
-          <a href="/">Home</a>
-          {CATEGORIES.map((c) => (
-            <a key={c.id} href={`#${c.id}`}>{c.label}</a>
-          ))}
-        </nav>
+    <header className="site-header"><div className="wrap">
+      <div className="nav-top">
+        <a href="/">Home</a>
+        <a href="#brief">Brief</a>
+        <a href="#sources">Sources</a>
+        <a href="#about">About</a>
+        <span className="search-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Search
+        </span>
       </div>
-    </header>
+      <div className="wordmark">
+        <div className="w">CIGNAL NEWS<span className="acc">.</span></div>
+      </div>
+      <nav className="catbar">
+        <a href="/">All</a>
+        {CATEGORIES.map((c) => (<a key={c.id} href={`#${c.id}`}>{c.label}</a>))}
+        <a className="sub" href="#brief">Subscribe</a>
+      </nav>
+    </div></header>
   );
 }

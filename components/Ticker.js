@@ -6,7 +6,7 @@ export default function Ticker({ items }) {
   const loop = [...feed, ...feed];
   return (
     <div className="ticker" aria-label="Latest economic headlines">
-      <div className="ticker-label"><span className="pulse" /> Signal</div>
+      <div className="ticker-tab"><span><span className="pulse" /> Signal</span></div>
       <div className="ticker-track">
         {loop.map((it, i) => (
           <a key={i} className="ticker-item" href={it.link} target="_blank" rel="noopener noreferrer">

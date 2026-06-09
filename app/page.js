@@ -1,5 +1,5 @@
 import { getNews, CATEGORIES, INDICATOR_COLORS } from "../lib/feeds";
-import { timeAgo, catLabel } from "../lib/format";
+import { timeAgo, shortDate, fullDate, catLabel } from "../lib/format";
 import Header from "../components/Header";
 import Ticker from "../components/Ticker";
 import ArticleImage from "../components/ArticleImage";
@@ -9,25 +9,26 @@ import Footer from "../components/Footer";
 export const dynamic = "force-dynamic";
 
 const catOf = (id) => CATEGORIES.find((c) => c.id === id) || CATEGORIES[0];
+const indLabel = { leading: "Leading", lagging: "Lagging", coincident: "Coincident", policy: "Policy" };
 
-function Indicator({ type }) {
-  const labels = { leading: "Leading", lagging: "Lagging", coincident: "Coincident", policy: "Policy" };
-  return (
-    <span className="ind"><span className="d" style={{ background: INDICATOR_COLORS[type] }} />{labels[type] || type} indicator</span>
-  );
+function CalIcon() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>;
+}
+function TagIcon() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7v5l9 9 5-5-9-9H3z"/><circle cx="7" cy="11" r="1.4" fill="currentColor"/></svg>;
 }
 
 function Card({ item }) {
-  const cat = catOf(item.category);
+  const c = catOf(item.category);
   return (
     <a className="card" href={item.link} target="_blank" rel="noopener noreferrer">
-      <ArticleImage title={item.title} color={cat.color} label={cat.label} />
-      <div className="top">
-        <span className="tag">{cat.label}</span>
-        {item.official && <span className="official">Primary source</span>}
+      <div className="card-img">
+        <ArticleImage title={item.title} color={c.color} label={c.label} />
+        {item.official && <span className="badge">Primary source</span>}
       </div>
+      <div className="kicker"><span className="cat">{c.label}</span><span className="sep">|</span><span className="date">{shortDate(item.date)}</span></div>
       <h3>{item.title}</h3>
-      <div className="meta"><span className="src">{item.source}</span><span>·</span><span>{timeAgo(item.date)}</span></div>
+      <div className="src">{item.source}</div>
     </a>
   );
 }
@@ -36,91 +37,117 @@ export default async function Home() {
   const { items, usingFallback } = await getNews();
   const lead = items[0];
   const leadCat = catOf(lead.category);
-  const side = items.slice(1, 5);
-  const highlight = items.slice(5, 8);
-  const latest = items.slice(8, 14);
-
+  const highlight = items.slice(1, 5);
+  const featLatest = items[5];
+  const sideLatest = items.slice(6, 9);
+  const focusMain = items[9];
+  const focusSide = items.slice(10, 12);
   const byCat = (id) => items.filter((it) => it.category === id);
 
   return (
     <>
       <Header />
-      <Ticker items={items} />
-      <main>
-        {/* Hero */}
-        <section className="hero"><div className="wrap"><div className="hero-grid">
-          <div className="hero-main">
-            <a href={lead.link} target="_blank" rel="noopener noreferrer">
-              <ArticleImage title={lead.title} color={leadCat.color} label={leadCat.label} ratio="16/9" />
-            </a>
-            <div className="head-row" style={{ marginTop: 18 }}>
-              <span className="tag">{leadCat.label}</span>
-              <Indicator type={leadCat.indicator} />
-            </div>
-            <h1><a href={lead.link} target="_blank" rel="noopener noreferrer">{lead.title}</a></h1>
-            <div className="meta"><span className="src">{lead.source}</span><span>·</span><span>{timeAgo(lead.date)}</span></div>
-            {usingFallback && <p className="fallback-note">Live feeds are warming up — placeholder content shown. This resolves automatically once feeds respond.</p>}
-          </div>
-          <aside className="hero-side">
-            <div className="hero-side-title">Also moving</div>
-            {side.map((it, i) => {
-              const c = catOf(it.category);
-              return (
-                <a className="mini" key={i} href={it.link} target="_blank" rel="noopener noreferrer">
-                  <ArticleImage title={it.title} color={c.color} label={c.label} ratio="1/1" />
-                  <div>
-                    <h3>{it.title}</h3>
-                    <div className="meta"><span className="tag">{c.label}</span><span>{timeAgo(it.date)}</span></div>
-                  </div>
-                </a>
-              );
-            })}
-          </aside>
-        </div></div></section>
+      <div className="wrap">
 
-        {/* Highlight */}
+        {/* HERO */}
+        <section className="panel hero-panel">
+          <span className="fold" />
+          <Ticker items={items} />
+          <a href={lead.link} target="_blank" rel="noopener noreferrer">
+            <div className="hero-img"><ArticleImage title={lead.title} color={leadCat.color} label={leadCat.label} /></div>
+          </a>
+          <div className="hero-meta">
+            <span className="m"><CalIcon /> {fullDate(lead.date) || "Today"}</span>
+            <span className="m cat"><TagIcon /> {leadCat.label}</span>
+          </div>
+          <h1><a href={lead.link} target="_blank" rel="noopener noreferrer">{lead.title}</a></h1>
+          <div className="hero-src">{lead.source}</div>
+          {usingFallback && <p className="fallback-note">Live feeds are warming up — placeholder content shown. This resolves automatically once feeds respond.</p>}
+        </section>
+
+        {/* HIGHLIGHT */}
         {highlight.length > 0 && (
-          <section className="section alt"><div className="wrap">
-            <div className="section-head"><h2>Highlight</h2><span className="rule" /></div>
-            <div className="highlight">
-              <div className="big">
-                <Card item={highlight[0]} />
-              </div>
-              <div className="stack">
-                {highlight.slice(1).map((it, i) => <Card key={i} item={it} />)}
-              </div>
-            </div>
-          </div></section>
+          <section className="panel">
+            <div className="sec-head"><h2>Highlight</h2><a className="viewall" href="#markets">View all</a></div>
+            <div className="grid4">{highlight.map((it, i) => <Card key={i} item={it} />)}</div>
+          </section>
         )}
 
-        {/* Latest */}
-        <section className="section"><div className="wrap">
-          <div className="section-head"><h2>Latest</h2><span className="rule" /><span className="meta">{items.length} tracked</span></div>
-          <div className="cards">
-            {latest.map((it, i) => <Card key={i} item={it} />)}
+        {/* LATEST + sidebar */}
+        {featLatest && (
+          <section className="panel">
+            <div className="sec-head"><h2>Latest</h2><span className="ind" style={{ marginLeft: "auto" }}>{items.length} tracked</span></div>
+            <div className="latest-grid">
+              <a className="card feature" href={featLatest.link} target="_blank" rel="noopener noreferrer">
+                <div className="card-img"><ArticleImage title={featLatest.title} color={catOf(featLatest.category).color} label={catOf(featLatest.category).label} />{featLatest.official && <span className="badge">Primary source</span>}</div>
+                <div className="kicker"><span className="cat">{catOf(featLatest.category).label}</span><span className="sep">|</span><span className="date">{shortDate(featLatest.date)}</span></div>
+                <h3>{featLatest.title}</h3>
+                <div className="src">{featLatest.source}</div>
+              </a>
+              <div className="side-stack">
+                {sideLatest.map((it, i) => {
+                  const c = catOf(it.category);
+                  return (
+                    <a className="card side-row" key={i} href={it.link} target="_blank" rel="noopener noreferrer">
+                      <div className="card-img"><ArticleImage title={it.title} color={c.color} label={c.label} /></div>
+                      <div>
+                        <div className="kicker" style={{ margin: "0 0 6px" }}><span className="cat">{c.label}</span></div>
+                        <h3>{it.title}</h3>
+                      </div>
+                    </a>
+                  );
+                })}
+                <Newsletter variant="box" />
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
+
+      {/* DARK "IN FOCUS" BAND */}
+      {focusMain && (
+        <section className="band"><div className="wrap">
+          <div className="focus-mini">in focus<span className="acc">.</span></div>
+          <div className="focus-grid">
+            <a className="focus-main" href={focusMain.link} target="_blank" rel="noopener noreferrer">
+              <div className="card-img"><ArticleImage title={focusMain.title} color={catOf(focusMain.category).color} label={catOf(focusMain.category).label} /></div>
+              <div className="focus-kicker">{catOf(focusMain.category).label}</div>
+              <h3>{focusMain.title}</h3>
+            </a>
+            <div className="focus-side-list">
+              {focusSide.map((it, i) => (
+                <a className="focus-side" key={i} href={it.link} target="_blank" rel="noopener noreferrer">
+                  <div className="card-img"><ArticleImage title={it.title} color={catOf(it.category).color} label={catOf(it.category).label} /></div>
+                  <div className="focus-kicker">{catOf(it.category).label}</div>
+                  <h3>{it.title}</h3>
+                </a>
+              ))}
+            </div>
           </div>
         </div></section>
+      )}
 
-        {/* Category sections */}
-        {CATEGORIES.map((cat, idx) => {
+      {/* CATEGORY PANELS */}
+      <div className="wrap">
+        {CATEGORIES.map((cat) => {
           const catItems = byCat(cat.id).slice(0, 3);
           if (catItems.length === 0) return null;
           return (
-            <section className={`section ${idx % 2 === 0 ? "alt" : ""}`} id={cat.id} key={cat.id}><div className="wrap">
-              <div className="section-head">
-                <h2>What&apos;s moving in {cat.label}</h2>
-                <Indicator type={cat.indicator} />
-                <span className="rule" />
+            <section className="panel" id={cat.id} key={cat.id}>
+              <div className="sec-head">
+                <h2>What&apos;s moving in <span className="red">{cat.label}</span></h2>
+                <span className="ind"><span className="d" style={{ background: INDICATOR_COLORS[cat.indicator] }} />{indLabel[cat.indicator]} indicator</span>
+                <a className="viewall" href={`#${cat.id}`}>View all</a>
               </div>
-              <div className="cards">
-                {catItems.map((it, i) => <Card key={i} item={it} />)}
-              </div>
-            </div></section>
+              <div className="grid3">{catItems.map((it, i) => <Card key={i} item={it} />)}</div>
+            </section>
           );
         })}
+      </div>
 
-        <Newsletter />
-      </main>
+      {/* SUBSCRIBE MEDIA CARD */}
+      <Newsletter variant="media" />
+
       <Footer />
     </>
   );

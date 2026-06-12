@@ -7,8 +7,12 @@
   --accent: #f23a28;
   --accent-hover: #d62f1f;
   --dark-muted: #9aa0aa;
+  --up: #16a35a;
+  --down: #e0392b;
+  --neutral: #d2920c;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --display: "Archivo", var(--sans);
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --maxw: 1260px;
   --radius: 18px;
 }
@@ -198,3 +202,44 @@ a:hover .card-img img { transform: scale(1.05); }
 .ad-rectangle { min-height: 250px; margin-bottom: 0; }
 .ad-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
 .ad-ph { font-family: var(--display); font-weight: 700; font-size: 15px; color: #bdb8ac; }
+
+/* ====== Cignal System family alignment ====== */
+
+/* monospace data feel on labels, meta, eyebrows, tickers */
+.kicker, .meta, .hero-meta, .ticker-item, .rb-eyebrow, .rb-meta, .eyebrow,
+.focus-kicker, .ad-label, .sec-head .ind, .ticker-tab, .card .src, .mini .m,
+.search-pill, .family-link, .foot-bottom, .rb-score, .macro { font-family: var(--mono); }
+
+/* LIVE macro strip (top of every page) */
+.macro { display: flex; align-items: stretch; background: #08080a; border-bottom: 1px solid #1b1c1f; overflow: hidden; white-space: nowrap; height: 34px; }
+.macro-tab { flex: none; display: flex; align-items: center; gap: 7px; background: var(--accent); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 14px; }
+.macro-tab .pulse { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
+.macro-wrap { overflow: hidden; flex: 1; display: flex; align-items: center; }
+.macro-track { display: flex; align-items: center; animation: scroll 70s linear infinite; }
+.macro:hover .macro-track { animation-play-state: paused; }
+.macro-item { display: inline-flex; align-items: center; gap: 7px; padding: 0 4px; font-size: 11px; }
+.macro-item .ml { color: #8c919b; text-transform: uppercase; letter-spacing: 0.06em; }
+.macro-item .mv { color: #e9eaec; font-weight: 600; }
+.macro-item .md.up { color: var(--up); }
+.macro-item .md.down { color: var(--down); }
+.macro-item .md.flat { color: #8c919b; }
+.macro-item .mslash { color: #34363b; margin: 0 8px; }
+@media (prefers-reduced-motion: reduce){ .macro-track{ animation: none; } }
+
+/* header family link (left of nav) */
+.family-link { position: absolute; left: 0; font-size: 11px !important; letter-spacing: 0.04em; color: var(--accent) !important; text-transform: uppercase; }
+.family-link:hover { color: #fff !important; }
+@media (max-width: 760px){ .family-link { display: none; } }
+
+/* uppercase + arrow CTA styling */
+.rb-btn { text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--mono); font-size: 12px; }
+.sec-head .viewall { font-family: var(--mono); }
+.nform button { text-transform: uppercase; letter-spacing: 0.05em; }
+.catbar .sub { font-family: var(--mono); }
+
+/* footer family strip */
+.family-strip { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 28px; padding: 18px 22px; border: 1px solid #1f2024; border-radius: 12px; transition: border-color .15s; }
+.family-strip:hover { border-color: var(--accent); }
+.fs-mark { font-family: var(--display); font-weight: 800; font-size: 18px; color: #fff; letter-spacing: -0.01em; flex: none; }
+.fs-text { font-family: var(--mono); font-size: 12px; color: var(--dark-muted); letter-spacing: 0.02em; }
+.foot-bottom { letter-spacing: 0.02em; }

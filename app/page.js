@@ -41,13 +41,13 @@ function Rail() {
         <h3>What&apos;s your Cignal Score?</h3>
         <p>A free 3-minute diagnostic on how well you read the market cycle.</p>
         <div className="rb-meta"><span>10 Questions</span><span>4 Categories</span><span>3 Min</span></div>
-        <a className="rb-btn" href={ASSESSMENT_URL} target="_blank" rel="noopener noreferrer">Take the assessment</a>
+        <a className="rb-btn" href={ASSESSMENT_URL} target="_blank" rel="noopener noreferrer">Take the assessment →</a>
       </div>
       <div className="rail-box">
         <div className="rb-eyebrow">Learn more</div>
         <h3>Go deeper with Cignal System</h3>
         <p>Market-cycle intelligence built for your industry — leading and trailing signals, forecasts, and dashboards.</p>
-        <a className="rb-btn" href={SYSTEM_URL} target="_blank" rel="noopener noreferrer">Explore Cignal System</a>
+        <a className="rb-btn" href={SYSTEM_URL} target="_blank" rel="noopener noreferrer">Explore Cignal System →</a>
         <a className="rb-btn ghost" href="#brief">Get the weekly brief</a>
       </div>
       <AdSlot format="rectangle" />
@@ -88,7 +88,7 @@ export default async function Home() {
         {/* HIGHLIGHT */}
         {highlight.length > 0 && (
           <section className="panel">
-            <div className="sec-head"><h2>Highlight</h2><a className="viewall" href="#markets">View all</a></div>
+            <div className="sec-head"><h2>Highlight</h2><a className="viewall" href="#markets">View all →</a></div>
             <div className="grid4">{highlight.map((it, i) => <Card key={i} item={it} />)}</div>
           </section>
         )}
@@ -119,7 +119,7 @@ export default async function Home() {
                   <div className="sec-head">
                     <h2>What&apos;s moving in <span className="red">{cat.label}</span></h2>
                     <span className="ind"><span className="d" style={{ background: INDICATOR_COLORS[cat.indicator] }} />{indLabel[cat.indicator]} indicator</span>
-                    <a className="viewall" href={`#${cat.id}`}>View all</a>
+                    <a className="viewall" href={`#${cat.id}`}>View all →</a>
                   </div>
                   <div className="grid3">{catItems.map((it, i) => <Card key={i} item={it} />)}</div>
                 </section>

@@ -1,9 +1,12 @@
 import { CATEGORIES } from "../lib/feeds";
 
+const SYSTEM_URL = "https://multifamily.cignalsystem.com";
+
 export default function Header() {
   return (
     <header className="site-header"><div className="wrap">
       <div className="nav-top">
+        <a className="family-link" href={SYSTEM_URL} target="_blank" rel="noopener noreferrer">Part of the Cignal System ↗</a>
         <a href="/">Home</a>
         <a href="#brief">Brief</a>
         <a href="#sources">Sources</a>
@@ -13,9 +16,7 @@ export default function Header() {
           Search
         </span>
       </div>
-      <div className="wordmark">
-        <div className="w">CIGNAL<span className="middot" />NEWS</div>
-      </div>
+      <div className="wordmark"><div className="w">CIGNAL<span className="middot" />NEWS</div></div>
       <nav className="catbar">
         <a href="/">All</a>
         {CATEGORIES.map((c) => (<a key={c.id} href={`#${c.id}`}>{c.label}</a>))}

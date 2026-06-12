@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import BriefCover from "./BriefCover";
 
 export default function Newsletter({ variant = "media" }) {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ export default function Newsletter({ variant = "media" }) {
 
   return (
     <section className="band" id="brief"><div className="wrap"><div className="media-card">
-      <div className="media-cover"><img src="https://picsum.photos/seed/cignal-brief-cover/700/900" alt="" /></div>
+      <div className="media-cover"><BriefCover /></div>
       <div>
         <div className="eyebrow">The weekly brief</div>
         <h2>Read the cycle, not the noise.</h2>

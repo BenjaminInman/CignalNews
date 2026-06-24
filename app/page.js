@@ -24,7 +24,7 @@ function Card({ item }) {
   const c = catOf(item.category);
   return (
     <a className="card" href={item.link} target="_blank" rel="noopener noreferrer">
-      <div className="card-img"><ArticleImage title={item.title} color={c.color} label={c.label} />{item.official && <span className="badge">Primary source</span>}</div>
+      <div className="card-img"><ArticleImage src={item.image} color={c.color} label={c.label} />{item.official && <span className="badge">Primary source</span>}</div>
       <div className="kicker"><span className="cat">{c.label}</span><span className="sep">|</span><span className="date">{shortDate(item.date)}</span></div>
       <h3>{item.title}</h3>
       <div className="src">{item.source}</div>
@@ -75,7 +75,7 @@ export default async function Home() {
         <section className="panel hero-panel">
           <span className="fold" />
           <Ticker items={items} />
-          <a href={lead.link} target="_blank" rel="noopener noreferrer"><div className="hero-img"><ArticleImage title={lead.title} color={leadCat.color} label={leadCat.label} /></div></a>
+          <a href={lead.link} target="_blank" rel="noopener noreferrer"><div className="hero-img"><ArticleImage src={lead.image} color={leadCat.color} label={leadCat.label} /></div></a>
           <div className="hero-meta">
             <span className="m"><CalIcon /> {fullDate(lead.date) || "Today"}</span>
             <span className="m cat"><TagIcon /> {leadCat.label}</span>
@@ -102,7 +102,7 @@ export default async function Home() {
               <section className="panel">
                 <div className="sec-head"><h2>Latest</h2><span className="ind" style={{ marginLeft: "auto" }}>{items.length} tracked</span></div>
                 <a className="card feature" href={latFeature.link} target="_blank" rel="noopener noreferrer">
-                  <div className="card-img"><ArticleImage title={latFeature.title} color={catOf(latFeature.category).color} label={catOf(latFeature.category).label} />{latFeature.official && <span className="badge">Primary source</span>}</div>
+                  <div className="card-img"><ArticleImage src={latFeature.image} color={catOf(latFeature.category).color} label={catOf(latFeature.category).label} />{latFeature.official && <span className="badge">Primary source</span>}</div>
                   <div className="kicker"><span className="cat">{catOf(latFeature.category).label}</span><span className="sep">|</span><span className="date">{shortDate(latFeature.date)}</span></div>
                   <h3>{latFeature.title}</h3>
                   <div className="src">{latFeature.source}</div>
@@ -137,14 +137,14 @@ export default async function Home() {
           <div className="focus-mini">in focus<span className="acc">.</span></div>
           <div className="focus-grid">
             <a className="focus-main" href={focusMain.link} target="_blank" rel="noopener noreferrer">
-              <div className="card-img"><ArticleImage title={focusMain.title} color={catOf(focusMain.category).color} label={catOf(focusMain.category).label} /></div>
+              <div className="card-img"><ArticleImage src={focusMain.image} color={catOf(focusMain.category).color} label={catOf(focusMain.category).label} /></div>
               <div className="focus-kicker">{catOf(focusMain.category).label}</div>
               <h3>{focusMain.title}</h3>
             </a>
             <div className="focus-side-list">
               {focusSide.map((it, i) => (
                 <a className="focus-side" key={i} href={it.link} target="_blank" rel="noopener noreferrer">
-                  <div className="card-img"><ArticleImage title={it.title} color={catOf(it.category).color} label={catOf(it.category).label} /></div>
+                  <div className="card-img"><ArticleImage src={it.image} color={catOf(it.category).color} label={catOf(it.category).label} /></div>
                   <div className="focus-kicker">{catOf(it.category).label}</div>
                   <h3>{it.title}</h3>
                 </a>

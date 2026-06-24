@@ -24,20 +24,23 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 26px; }
 
 /* ---------- Header (on black) ---------- */
-.site-header { padding: 26px 0 18px; }
-.nav-top { display: flex; align-items: center; justify-content: center; gap: 30px; position: relative; }
-.nav-top a { font-size: 14px; font-weight: 500; color: #e7e8ea; transition: color .15s; }
-.nav-top a:hover { color: var(--accent); }
-.search-pill { position: absolute; right: 0; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2c2d31; border-radius: 100px; padding: 8px 16px; font-size: 13px; color: #cfd1d5; }
-.wordmark { text-align: center; padding: 22px 0 10px; }
-.wordmark .w { font-family: var(--display); font-weight: 800; font-size: clamp(48px, 11vw, 132px); letter-spacing: -0.04em; line-height: 0.9; color: #fff; }
-.wordmark .w .acc { color: var(--accent); }
-.catbar { display: flex; align-items: center; gap: 26px; padding: 18px 0 6px; border-top: 1px solid #1c1d20; margin-top: 14px; overflow-x: auto; }
+.site-header { padding: 16px 0 0; }
+.nav-bar { display: flex; align-items: center; gap: 30px; padding: 6px 0 16px; }
+.brand { flex: none; }
+.brand .brand-mark { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; line-height: 1; color: #fff; }
+.nav-main { display: flex; align-items: center; gap: 26px; }
+.nav-main a { font-size: 14px; font-weight: 500; color: #c9cbcf; transition: color .15s; }
+.nav-main a:hover { color: #fff; }
+.nav-actions { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+.search-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid #2c2d31; border-radius: 50%; color: #cfd1d5; cursor: pointer; transition: border-color .15s, color .15s; }
+.search-btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-cta { background: var(--accent); color: #fff; border-radius: 100px; padding: 9px 20px; font-size: 12px; font-family: var(--mono); letter-spacing: 0.05em; text-transform: uppercase; transition: background .15s; }
+.btn-cta:hover { background: var(--accent-hover); color: #fff; }
+.catbar { display: flex; align-items: center; gap: 26px; padding: 14px 0 6px; border-top: 1px solid #1c1d20; overflow-x: auto; }
 .catbar a { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #c4c6ca; white-space: nowrap; transition: color .15s; }
 .catbar a:first-child { color: #fff; }
 .catbar a:hover { color: var(--accent); }
-.catbar .sub { margin-left: auto; background: var(--accent); color: #fff; border-radius: 100px; padding: 9px 20px; font-size: 12px; letter-spacing: 0.04em; }
-.catbar .sub:hover { background: var(--accent-hover); color: #fff; }
+@media (max-width: 760px){ .nav-main, .search-btn { display: none; } }
 
 /* ---------- Panels & bands ---------- */
 .panel { position: relative; background: var(--panel); color: var(--ink); border-radius: var(--radius); padding: 30px; margin-bottom: 14px; }
@@ -161,7 +164,7 @@ a:hover .card-img img { transform: scale(1.05); }
 .foot-bottom { display: flex; justify-content: space-between; gap: 14px; padding-top: 20px; font-size: 12px; color: #6c7079; flex-wrap: wrap; }
 
 /* ---------- Middle-dot wordmark ---------- */
-.w .middot, .about-mark .middot { display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--accent); vertical-align: 0.36em; margin: 0 0.1em; }
+.brand-mark .middot, .about-mark .middot { display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--accent); vertical-align: 0.36em; margin: 0 0.1em; }
 
 /* ---------- Main grid with sticky right rail ---------- */
 .main-grid { display: grid; grid-template-columns: minmax(0,1fr) 332px; gap: 14px; align-items: start; }
@@ -208,7 +211,7 @@ a:hover .card-img img { transform: scale(1.05); }
 /* monospace data feel on labels, meta, eyebrows, tickers */
 .kicker, .meta, .hero-meta, .ticker-item, .rb-eyebrow, .rb-meta, .eyebrow,
 .focus-kicker, .ad-label, .sec-head .ind, .ticker-tab, .card .src, .mini .m,
-.search-pill, .family-link, .foot-bottom, .rb-score, .macro { font-family: var(--mono); }
+.search-btn, .family-link, .foot-bottom, .rb-score, .macro { font-family: var(--mono); }
 
 /* LIVE macro strip (top of every page) */
 .macro { display: flex; align-items: stretch; background: #08080a; border-bottom: 1px solid #1b1c1f; overflow: hidden; white-space: nowrap; height: 34px; }
@@ -226,8 +229,8 @@ a:hover .card-img img { transform: scale(1.05); }
 .macro-item .mslash { color: #34363b; margin: 0 8px; }
 @media (prefers-reduced-motion: reduce){ .macro-track{ animation: none; } }
 
-/* header family link (left of nav) */
-.family-link { position: absolute; left: 0; font-size: 11px !important; letter-spacing: 0.04em; color: var(--accent) !important; text-transform: uppercase; }
+/* header family link (right side, before CTA) */
+.family-link { font-size: 11px !important; letter-spacing: 0.04em; color: var(--accent) !important; text-transform: uppercase; }
 .family-link:hover { color: #fff !important; }
 @media (max-width: 760px){ .family-link { display: none; } }
 

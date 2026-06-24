@@ -1,4 +1,5 @@
 import { getNews, CATEGORIES, INDICATOR_COLORS } from "../lib/feeds";
+import { assignImages } from "../lib/images";
 import { shortDate, fullDate } from "../lib/format";
 import Header from "../components/Header";
 import Ticker from "../components/Ticker";
@@ -57,14 +58,40 @@ function Rail() {
 
 export default async function Home() {
   const { items, usingFallback } = await getNews();
-  const lead = items[0];
+
+  // Draw each section from articles not already shown, so no story — and no
+  // image — repeats across the page.
+  const used = new Set();
+  const take = (n, filt) => {
+    const out = [];
+    for (let i = 0; i < items.length; i++) {
+      if (used.has(i)) continue;
+      if (filt && !filt(items[i])) continue;
+      out.push(items[i]);
+      used.add(i);
+      if (out.length === n) break;
+    }
+    return out;
+  };
+
+  const lead = take(1)[0];
+  const highlight = take(4);
+  const latFeature = take(1)[0];
+  const latGrid = take(3);
+  const focusMain = take(1)[0];
+  const focusSide = take(2);
+  const catSections = CATEGORIES
+    .map((cat) => ({ cat, items: take(3, (it) => it.category === cat.id) }))
+    .filter((s) => s.items.length > 0);
+
+  // Assign images in display order so the most prominent stories are most
+  // distinct (per-topic rotation; Pexels layer when a key is present).
+  await assignImages(
+    [lead, ...highlight, latFeature, ...latGrid, focusMain, ...focusSide,
+     ...catSections.flatMap((s) => s.items)].filter(Boolean)
+  );
+
   const leadCat = catOf(lead.category);
-  const highlight = items.slice(1, 5);
-  const latFeature = items[5];
-  const latGrid = items.slice(6, 9);
-  const focusMain = items[9];
-  const focusSide = items.slice(10, 12);
-  const byCat = (id) => items.filter((it) => it.category === id);
 
   return (
     <>
@@ -111,20 +138,16 @@ export default async function Home() {
               </section>
             )}
 
-            {CATEGORIES.map((cat) => {
-              const catItems = byCat(cat.id).slice(0, 3);
-              if (catItems.length === 0) return null;
-              return (
-                <section className="panel" id={cat.id} key={cat.id}>
-                  <div className="sec-head">
-                    <h2>What&apos;s moving in <span className="red">{cat.label}</span></h2>
-                    <span className="ind"><span className="d" style={{ background: INDICATOR_COLORS[cat.indicator] }} />{indLabel[cat.indicator]} indicator</span>
-                    <a className="viewall" href={`#${cat.id}`}>View all →</a>
-                  </div>
-                  <div className="grid3">{catItems.map((it, i) => <Card key={i} item={it} />)}</div>
-                </section>
-              );
-            })}
+            {catSections.map(({ cat, items: catItems }) => (
+              <section className="panel" id={cat.id} key={cat.id}>
+                <div className="sec-head">
+                  <h2>What&apos;s moving in <span className="red">{cat.label}</span></h2>
+                  <span className="ind"><span className="d" style={{ background: INDICATOR_COLORS[cat.indicator] }} />{indLabel[cat.indicator]} indicator</span>
+                  <a className="viewall" href={`#${cat.id}`}>View all →</a>
+                </div>
+                <div className="grid3">{catItems.map((it, i) => <Card key={i} item={it} />)}</div>
+              </section>
+            ))}
           </div>
 
           <Rail />

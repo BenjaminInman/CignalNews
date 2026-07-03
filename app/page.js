@@ -115,7 +115,7 @@ export default async function Home() {
         {/* HIGHLIGHT */}
         {highlight.length > 0 && (
           <section className="panel">
-            <div className="sec-head"><h2>Highlight</h2><a className="viewall" href="#markets">View all →</a></div>
+            <div className="sec-head"><h2>Highlight</h2><a className="viewall" href="#housing">View all →</a></div>
             <div className="grid4">{highlight.map((it, i) => <Card key={i} item={it} />)}</div>
           </section>
         )}

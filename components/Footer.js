@@ -42,10 +42,10 @@ export default function Footer() {
       </div>
       <a className="family-strip" href={SYSTEM_URL} target="_blank" rel="noopener noreferrer">
         <span className="fs-mark">CIGNAL<span className="middot" />SYSTEM</span>
-        <span className="fs-text">Cignal News is part of the Cignal System — market-cycle intelligence across industries. Explore the platform ↗</span>
+        <span className="fs-text">Cignal News is a member of the Cignal System — market-cycle intelligence across industries. Explore the platform ↗</span>
       </a>
       <div className="foot-bottom">
-        <span>© {new Date().getFullYear()} Cignal News · part of the Cignal System</span>
+        <span>© {new Date().getFullYear()} Cignal News · a member of the Cignal System</span>
         <span>Data is indicative. Not investment advice. Always verify with primary sources.</span>
       </div>
     </div></footer>

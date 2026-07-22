@@ -5,7 +5,7 @@ import SocialBar from "../components/SocialBar";
 export const metadata = {
   title: "Cignal News — US economic signal",
   description:
-    "Cignal News: the latest US economic headlines from primary sources and major publishers, organized by where each theme sits in the market cycle. Part of the Cignal System.",
+    "Cignal News: the latest US economic headlines from primary sources and major publishers, organized by where each theme sits in the market cycle. A member of the Cignal System.",
 };
 
 export default function RootLayout({ children }) {
